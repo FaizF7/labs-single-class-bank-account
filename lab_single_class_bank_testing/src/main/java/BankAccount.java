@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.Random;
 
 public class BankAccount {
@@ -8,16 +9,18 @@ public class BankAccount {
     private LocalDate dateOfBirth;
     private int accountNumber;
     private double balance;
-//    private String accountType;
+    private String accountType;
+    private double overdraft;
 
-    public BankAccount(String firstName, String lastName, LocalDate dateOfBirth, int accountNumber){
+    public BankAccount(String firstName, String lastName, LocalDate dateOfBirth, int accountNumber, String accountType, double overdraft){
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.accountNumber = accountNumber;
-//        this.accountType = accouy
-        this.balance=0;
+        this.accountType = accountType;
+        this.overdraft = overdraft;
 
+        this.balance=0;
     }
 
     public String getFirstName(){
@@ -63,11 +66,23 @@ public class BankAccount {
         this.balance+=amount;
     }
 
-    public void withdrawal(double amount){
-        this.balance-=amount;
+    public String withdrawal(double amount){
+        if (this.balance-amount>=-this.overdraft){
+        this.balance -= amount;
+        return null;
+        }else{
+            return "Unable to fulfil request";
+        }
+
     }
 
     public void payInterest(){
-        this.balance *= 1.05;
+        if (this.accountType == "saver"){
+            this.balance *= 1.07;
+        }else if(this.accountType == "current"){
+            this.balance*=1.05;
+        }
     }
+
+
 }
