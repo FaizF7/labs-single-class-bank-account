@@ -98,15 +98,21 @@ public class TestBankAccount {
         assertThat(result).isEqualTo(-100);
     }
 
-    void canNotWithdrawOverdraft(){
+    void canNotWithdrawOverdraftBalance(){
         BankAccount bankAccount = new BankAccount("Faiz", "Fazaluddin", LocalDate.of(2000, 9, 7), 12345678, "current", 100);
         bankAccount.withdrawal(200);
         double result = bankAccount.getBalance();
         assertThat(result).isEqualTo(0);
     }
+    void canNotWithdrawOverdraftMessage(){
+        BankAccount bankAccount = new BankAccount("Faiz", "Fazaluddin", LocalDate.of(2000, 9, 7), 12345678, "current", 100);
+        String result = bankAccount.withdrawal(200);
+//        double result = bankAccount.getBalance();
+//        String result = bankAccount.withdrawal();
+        assertThat(result).isEqualTo("Unable to fulfil request");
+    }
 
-
-
+    
     @Test
     void canPayInterestCurrent(){
         BankAccount bankAccount = new BankAccount("Faiz", "Fazaluddin", LocalDate.of(2000, 9, 7), 12345678, "current", 100 );
