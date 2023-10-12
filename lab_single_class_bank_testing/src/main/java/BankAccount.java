@@ -7,8 +7,8 @@ public class BankAccount {
     private String lastName;
 //    String dateOfBirth;
     private LocalDate dateOfBirth;
-    private int accountNumber;
-    private double balance;
+    private int accountNumber; //Could also use a String
+    private double balance; //Could use the integer of pennies to prevent floating point error
     private String accountType;
     private double overdraft;
 
@@ -63,26 +63,40 @@ public class BankAccount {
     }
 
     public void deposit(double amount){
-        this.balance+=amount;
+        this.balance+=amount; // balance = balance + amount;
     }
 
     public String withdrawal(double amount){
         if (this.balance-amount>=-this.overdraft){
-        this.balance -= amount;
-        return null;
+            this.balance -= amount;
+            return null;
         }else{
             return "Unable to fulfil request";
         }
-
     }
 
     public void payInterest(){
-        if (this.accountType == "saver"){
-            this.balance *= 1.07;
-        }else if(this.accountType == "current"){
+        if (this.accountType.equals("saver")){
+            this.balance *= 1.10;
+        }else if(this.accountType.equals("current")){
             this.balance*=1.05;
         }
+
     }
 
+    public String getAccountType() {
+        return this.accountType;
+    }
 
+    public void setAccountType(String accountType) {
+        this.accountType = accountType;
+    }
+
+    public double getOverdraft() {
+        return this.overdraft;
+    }
+
+    public void setOverdraft(double overdraft) {
+        this.overdraft = overdraft;
+    }
 }
